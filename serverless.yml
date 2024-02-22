@@ -18,17 +18,17 @@ provider:
         - arn:aws:dynamodb:us-east-1:654654455562:table/Vehiculos
 
 functions:
-  api:
+  getItemDB:
     handler: src/getItemDB.getItemDB
     events:
       - httpApi:
-          path: /people/{id}
+          path: /{model}/{id}
           method: get
   createPeople:
-    handler: src/addPeople.addPeople
+    handler: src/createItemDB.createItemDB
     events:
       - httpApi:
-          path: /people
+          path: /{model}/{id}
           method: post
 
 resources:

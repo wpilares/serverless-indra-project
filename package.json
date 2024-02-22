@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "serverless offline",
-    "start": "serverless deploy",
+    "start": "serverless deploy --verbose",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx ."
   },
   "devDependencies": {

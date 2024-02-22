@@ -28,3 +28,12 @@ export const translations = {
         average_lifespan: 'esperanza_vida_promedio',
     },
 };
+
+export const modelTranslations = {
+    people: "Personajes",
+    films: "Peliculas",
+    planets: "Planetas",
+    species: "Planetas",
+    starships: "NavesEspaciales",
+    vehicles: "Vehiculos"
+}

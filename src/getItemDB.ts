@@ -1,18 +1,23 @@
 import {getItem} from "./services";
+import {modelTranslations} from "./helpers";
 
 export const getItemDB = async (event) => {
 
     try {
+        const {id, model} = event.pathParameters
+        const translatedModel = modelTranslations[model] || model;
+        const response = await getItem(translatedModel, Number(id));
 
-        const {id} = event.pathParameters
-
-
-        const response = await getItem("Personajes", Number(id));
-        console.log(response)
+        if (response === undefined) {
+                return {
+                    statusCode: 400,
+                    body: JSON.stringify({ error: `No se encontro item con el id: ${id}` })
+                };
+        }
 
         return {
-            statusCode:200,
-            body: response.Item
+            statusCode: 200,
+            body: JSON.stringify(response.Item)
         }
 
     } catch (error) {

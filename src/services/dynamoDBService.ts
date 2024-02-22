@@ -21,7 +21,7 @@ export const getItem = async (tableName: string, id: number): Promise<any> => {
         }
     });
 
-    return await docClient.send(command);
+    return await docClient.send(command)
 }
 
 
