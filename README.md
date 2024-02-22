@@ -1,92 +1,72 @@
-<!--
-title: 'AWS Simple HTTP Endpoint example in NodeJS'
-description: 'This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# Serverless Indra Project
 
-# Serverless Framework Node HTTP API on AWS
+Este proyecto es un servidor sin servidor (serverless) que utiliza AWS Lambda, API Gateway y Node.js con TypeScript. Proporciona dos funciones principales: createItemDB y getItemDB.
+## Instalación
 
-This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
+Instala de manera global serverless
 
-This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
+```
+$ npm install -g serverless
+```
 
-## Usage
+Instala yarn en la versión 4 e instala las dependencias
 
-### Deployment
+```
+$ corepack enable
+$ yarn set version berry
+$ yarn install 
+```
+
+
+## Deployment
 
 ```
 $ serverless deploy
 ```
 
-After deploying, you should see output similar to:
+## Uso
+
+Actualmente, ya se encuentra desplegado por lo que se pueden utilizar los endpoints
+
+### 'createItemDB'
+El endpoint createItemDB es un método POST que permite crear un nuevo ítem en la base de datos. Utiliza la siguiente URL:
+
+```
+POST https://jvydzk4mg4.execute-api.us-east-1.amazonaws.com/{model}/{id}
+
+```
+
+Esta función realiza los siguientes pasos:
+
+1. Busca el ítem correspondiente al modelo y ID proporcionados en la API de Star Wars.
+2. Transforma los títulos de las propiedades del ítem al español.
+3. Inserta el ítem en la base de datos DynamoDB.
+   
+Ejemplo de solicitud:
+
 
 ```bash
-Deploying aws-node-http-api-project to stage dev (us-east-1)
-
-✔ Service deployed to stack aws-node-http-api-project-dev (152s)
-
-endpoint: GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/
-functions:
-  hello: aws-node-http-api-project-dev-hello (1.9 kB)
+curl -X POST https://jvydzk4mg4.execute-api.us-east-1.amazonaws.com/films/1
 ```
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
+### 'getItemDB'
+El endpoint getItemDB es un método GET que permite obtener un ítem de la base de datos. Utiliza la siguiente URL:
+```
+GET https://jvydzk4mg4.execute-api.us-east-1.amazonaws.com/{model}/{id}
+```
 
-### Invocation
+Esta función realiza los siguientes pasos:
 
-After successful deployment, you can call the created application via HTTP:
+1. Esta función busca el ítem correspondiente al modelo y ID proporcionados en la base de datos DynamoDB y devuelve los títulos de las propiedades en español.
+
+Ejemplo de solicitud:
+
 
 ```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
+curl -X GET https://jvydzk4mg4.execute-api.us-east-1.amazonaws.com/films/1
 ```
 
-Which should result in response similar to the following (removed `input` content for brevity):
+## CI/CD
 
-```json
-{
-  "message": "Go Serverless v2.0! Your function executed successfully!",
-  "input": {
-    ...
-  }
-}
-```
+Se ha configurado un pipeline de integración continua/despliegue continuo (CI/CD) para que se ejecute automáticamente cada vez que se realicen cambios en la rama main. Esto asegura que los cambios se desplieguen de forma automática en el entorno de producción después de pasar las pruebas necesarias.
 
-### Local development
-
-You can invoke your function locally by using the following command:
-
-```bash
-serverless invoke local --function hello
-```
-
-Which should result in response similar to the following:
-
-```
-{
-  "statusCode": 200,
-  "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
-}
-```
-
-
-Alternatively, it is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
-
-```bash
-serverless plugin install -n serverless-offline
-```
-
-It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
-
-After installation, you can start local emulation with:
-
-```
-serverless offline
-```
-
-To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
