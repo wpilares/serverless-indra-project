@@ -8,10 +8,10 @@ export const getItemDB = async (event) => {
         const translatedModel = modelTranslations[model] || model;
         const response = await getItem(translatedModel, Number(id));
 
-        if (response === undefined) {
+        if (typeof response.Item === 'undefined') {
                 return {
                     statusCode: 400,
-                    body: JSON.stringify({ error: `No se encontro item con el id: ${id}` })
+                    body: JSON.stringify({ error: `No se encontró item con el id: ${id}` })
                 };
         }
 
