@@ -70,3 +70,10 @@ curl -X GET https://jvydzk4mg4.execute-api.us-east-1.amazonaws.com/films/1
 
 Se ha configurado un pipeline de integración continua/despliegue continuo (CI/CD) para que se ejecute automáticamente cada vez que se realicen cambios en la rama main. Esto asegura que los cambios se desplieguen de forma automática en el entorno de producción después de pasar las pruebas necesarias.
 
+## Testing
+
+
+```bash
+yarn test
+```
+

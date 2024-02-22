@@ -43,5 +43,5 @@ describe('getItemDB function', () => {
         expect(result.statusCode).toBe(400);
         expect(result.body).toEqual(JSON.stringify({ error: 'No se encontró item con el id: 999' }));
     });
-    
+
 });
