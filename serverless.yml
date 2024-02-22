@@ -24,7 +24,7 @@ functions:
       - httpApi:
           path: /{model}/{id}
           method: get
-  createPeople:
+  createItemDB:
     handler: src/createItemDB.createItemDB
     events:
       - httpApi:
@@ -117,6 +117,7 @@ custom:
     version: '1'
     title: 'Serverless Indra Project'
     description: 'This is my API'
+    basePath: /api-docs
     models:
       - handler: src/getItemDB.getItemDB
         type: get
