@@ -11,6 +11,8 @@ export const translations = {
     },
     films: {
         title: 'titulo',
+        episode_id: 'id_episodio',
+        opening_crawl: 'texto_apertura',
         director: 'director',
         producer: 'productor',
         release_date: 'fecha_estreno',
