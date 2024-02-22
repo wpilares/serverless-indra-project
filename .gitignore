@@ -12,5 +12,5 @@ jspm_packages
 #editor
 .idea
 
-
 .coverage
+coverage
