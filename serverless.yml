@@ -5,28 +5,114 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-1:654654455562:table/Personajes
+        - arn:aws:dynamodb:us-east-1:654654455562:table/Peliculas
+        - arn:aws:dynamodb:us-east-1:654654455562:table/Planetas
+        - arn:aws:dynamodb:us-east-1:654654455562:table/Especies
+        - arn:aws:dynamodb:us-east-1:654654455562:table/NavesEspaciales
+        - arn:aws:dynamodb:us-east-1:654654455562:table/Vehiculos
 
 functions:
   api:
-    handler: src/index.handler
+    handler: src/getItemDB.getItemDB
     events:
       - httpApi:
-          path: /
+          path: /people/{id}
           method: get
+  createPeople:
+    handler: src/addPeople.addPeople
+    events:
+      - httpApi:
+          path: /people
+          method: post
 
 resources:
   Resources:
-    TaskTable:
+    Personajes:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: TaskTable
+        TableName: Personajes
         AttributeDefinitions:
           - AttributeName: id
-            AttributeType: S
+            AttributeType: N
         KeySchema:
           - AttributeName: id
             KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    Peliculas:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Peliculas
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    Planetas:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Planetas
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    Especies:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Especies
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    NavesEspaciales:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: NavesEspaciales
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    Vehiculos:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Vehiculos
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: N
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 
 plugins:
   - serverless-offline
   - serverless-plugin-typescript
+
